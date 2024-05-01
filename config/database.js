@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-mongoose.connect('mongodb://mobilecare:mobilecare@ac-9vtryxb-shard-00-00.md5udg0.mongodb.net:27017,ac-9vtryxb-shard-00-01.md5udg0.mongodb.net:27017,ac-9vtryxb-shard-00-02.md5udg0.mongodb.net:27017/?ssl=true&replicaSet=atlas-11yxyh-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster0', {
+mongoose.connect('mongodb+srv://mobilecare:mobilecare@cluster0.md5udg0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
