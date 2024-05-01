@@ -65,8 +65,6 @@ const express = require('express');
         pc: String,
         devmo: String,
         Imei: String,
-        purprice: String,
-        sremail: String
     });
     const PurchasingData = mongoose.model('Purchase Data', PurchaseForm);
     const SellingData = mongoose.model('Selling Data', SellingForm);
