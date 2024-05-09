@@ -38,6 +38,9 @@ const express = require('express');
         technicianName: {
             type: String
         },
+        beingrepair: {
+            type: String
+        },
         status: {
             type: String
         },
@@ -48,6 +51,9 @@ const express = require('express');
             type: String
         },
         balance: {
+            type: String
+        },
+        notes: {
             type: String
         }
     };
