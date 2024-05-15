@@ -133,6 +133,30 @@ const express = require('express');
             const doc = new PDFDocument();
             
             doc.fontSize(12);
+            doc.text(`Customer Device Purchasing
+
+            All specifications on the contract are subject to the following terms and conditions. You agree to be bound to these terms when you sign below. These are the Terms and Conditions which you, the customer, agree to and are applicable to the purchase of your device by Mobile Care!
+            
+            
+            ➛ You the customer understand that Mobile Care is selling this device to you in "AS IS" conditions.
+            
+            ➛ Devices come certified pre-owned with original parts, unless specified by Mobile Care otherwise.
+            
+            ➛ All purchased devices come with a 30 Day warranty from Mobile Care.
+            
+            ➛ If you the customer damage the device, then Mobile Care is not responsible, but we can offer you a discount on repairs!
+            
+            ➛ All devices come carrier unlock!
+            
+            ➛ Device Unlock information is available upon request.
+            
+            ➛ Mobile Care is not responsible for carrier services that are not provided by us!
+            
+            ➛ Device purchasing by Debit/Credit Card will be subject to a ID verification and signature!
+            
+            ➛ Devices sold by cash will be checked for illegal tender!
+            
+            **Mobile Care abides by all local laws and city ordinances within the state and city limits of location. Mobile Care does not tolerate dishonesty and stolen devices, and forgery of any customer.**`, { align: 'center' }).moveDown();
             doc.text('Submitted Form Data', { align: 'center' }).moveDown();
             Object.entries(formData).forEach(([key, value]) => {
                 doc.text(`${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}`);
