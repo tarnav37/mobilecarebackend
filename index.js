@@ -71,6 +71,7 @@ const express = require('express');
         pc: String,
         devmo: String,
         Imei: String,
+        signature: String,
     });
     const PurchasingData = mongoose.model('Purchase Data', PurchaseForm);
     const SellingData = mongoose.model('Selling Data', SellingForm);
@@ -96,6 +97,7 @@ const express = require('express');
     app.post('/sellingform', async (req, res) => {
         try {
           const formData = req.body;
+          console.log(req.body)
           const savedFormData = await SellingData.create(formData);
           res.status(200).json({ message: 'Form data submitted successfully', formData: savedFormData });
         } catch (error) {
@@ -181,11 +183,10 @@ All specifications on the contract are subject to the following terms and condit
 
     app.post('/downloadselling', async (req, res) => {
         try {
-            const formData = req.body;
-            const doc = new PDFDocument();
-            doc.text('Signature:', { align: 'center' }).moveDown();
-    doc.image(formData.signature, 100, 100);
-            doc.fontSize(12);
+          const formData = req.body;
+          const doc = new PDFDocument();
+      
+          doc.fontSize(12);
 
             //---------------Start of pdf template------------------------
             doc.text(`Phone Buying Contract
@@ -202,22 +203,26 @@ All specifications on the contract are subject to the following terms and condit
 
             //---------------Start of pdf template------------------------
             doc.text('Submitted Form Data', { align: 'center' }).moveDown();
-            Object.entries(formData).forEach(([key, value]) => {
-                doc.text(`${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}`);
-                doc.moveDown();
-            });
-            doc.end();
-
-            res.setHeader('Content-Type', 'application/pdf');
-            res.setHeader('Content-Disposition', 'attachment; filename=form_data.pdf');
-
-            doc.pipe(res);
-        } catch (error) {  
-            console.error('Error generating PDF:', error);
-            res.status(500).json({ error: 'Error generating PDF' });
-        }
+    Object.entries(formData).forEach(([key, value]) => {
+      if (key === 'signature') {
+        doc.text('Signature:').moveDown();
+        doc.image(value, { fit: [250, 100], align: 'center' }).moveDown();
+      } else {
+        doc.text(`${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}`);
+        doc.moveDown();
+      }
     });
+    doc.end();
 
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename=form_data.pdf');
+
+    doc.pipe(res);
+  } catch (error) {
+    console.error('Error generating PDF:', error);
+    res.status(500).json({ error: 'Error generating PDF' });
+  }
+});
 
     app.post('/downloadrepair', async (req, res) => {
         try {
