@@ -159,14 +159,19 @@ All specifications on the contract are subject to the following terms and condit
             //---------------Start of pdf template------------------------
             doc.text('Submitted Form Data', { align: 'center' }).moveDown();
             Object.entries(formData).forEach(([key, value]) => {
-                doc.text(`${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}`);
-                doc.moveDown();
+                if (key === 'signature') {
+                    doc.text('Signature:').moveDown();
+                    doc.image(value, { fit: [250, 100], align: 'center' }).moveDown();
+                } else {
+                    doc.text(`${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}`);
+                    doc.moveDown();
+                }
             });
             doc.end();
-
+    
             res.setHeader('Content-Type', 'application/pdf');
             res.setHeader('Content-Disposition', 'attachment; filename=form_data.pdf');
-
+    
             doc.pipe(res);
         } catch (error) {  
             console.error('Error generating PDF:', error);
