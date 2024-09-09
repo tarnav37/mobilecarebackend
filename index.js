@@ -119,12 +119,14 @@ const express = require('express');
 
     app.get('/repairdata', async (req, res) => {
         try {
-            const repairData = await RepairData.find();
+            // Sort the repairData by date in descending order
+            const repairData = await RepairData.find().sort({ date: -1 });
             res.status(200).json({ repairData });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
-    })
+    });    
+
 
     app.post('/downloadpurchase', async (req, res) => {
         try {
