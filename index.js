@@ -15,12 +15,16 @@ const express = require('express');
         phoneNo: String,
         email: String,
         Address: String,
+        location: String,
         Dl: String,
         signature: String,
     });
 
     const RepairForm = {
         date: {
+            type: String
+        },
+        location: {
             type: String
         },
         deviceModel: {
@@ -65,6 +69,7 @@ const express = require('express');
         phoneNo: String,
         email: String,
         licenseNumber: String,
+        location: String, 
         Address: String,
         samemail: String,
         iemail: String,
